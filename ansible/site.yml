@@ -1,0 +1,39 @@
+---
+- hosts: local
+  become: true
+  collections:
+    - community.docker
+
+  vars:
+    app_dir: "{{ playbook_dir }}/.."
+    image_name: garden:latest
+    container_name: garden
+    host_port: 8000
+    container_port: 80
+
+  tasks:
+    - name: Ensure Docker + SDK are installed
+      apt:
+        name:
+          - docker.io
+          - python3-docker
+        state: present
+        update_cache: true
+
+    - name: Build image locally
+      community.docker.docker_image:
+        name: "{{ image_name }}"
+        source: build
+        build:
+          path: "{{ app_dir }}"
+          pull: yes
+
+    - name: Run container locally
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}"
+        restart_policy: unless-stopped
+        state: started
+        recreate: true
+        ports:
+          - "{{ host_port }}:{{ container_port }}"
