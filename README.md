@@ -2,15 +2,15 @@
 A <200-line Python FastAPI service that wraps a pre-trained automatic speech recognition model and exposes a JSON HTTP API for inference.
 
 ### Usage Instructions (Linux)
-To start the server from the project repository's root, run the command:
+To start the server from the project repository's root, run the command:<br>
 ansible-playbook ansible\site.yml -i localhost,
 
 ### Usage Instructions (Windows)
-To start the server, first Docker must be installed and running. 
+To start the server, first Docker must be installed and running. <br>
 Find installation instructions here: https://docs.docker.com/desktop/setup/install/windows-install/
 
-Then from the project repository's root, run the command:
-docker build -t myapp:latest .
+Then from the project repository's root, run the command:<br>
+docker build -t myapp:latest .<br>
 docker run -d --name myapp -p 8000:8000 --restart unless-stopped myapp:latest
 
 Use Swagger UI to test the API endpoints. In a browser, enter localhost:8000/docs in the URL
@@ -24,7 +24,7 @@ Use Swagger UI to test the API endpoints. In a browser, enter localhost:8000/doc
 Choose an audio file such as: wav, mp3, m4a, flac. Then execute the API endpoint. 
 
 ## Testing
-Testing will require pytest and httpx to be install. If using pip, run:
-pip install pytest httpx
-To run the test, run:
+Testing will require pytest and httpx to be install. If using pip, run:<br>
+pip install pytest httpx<br>
+To run the test, run:<br>
 python -m pytest -v
